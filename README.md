@@ -3,9 +3,7 @@
 1️⃣ Compose কি?
 
 Jetpack Compose হলো Android এর নতুন UI toolkit।
-
 এটি declarative UI approach ব্যবহার করে। অর্থাৎ আপনি বলে দিচ্ছেন কি দেখাতে হবে, না কিভাবে দেখাতে হবে।
-
 পুরনো Android View system এ যেটা করতাম: XML + findViewById + setOnClickListener → Compose এ সেটার প্রয়োজন নেই।
 
 2️⃣ মূল building blocks
@@ -14,13 +12,10 @@ Jetpack Compose হলো Android এর নতুন UI toolkit।
 সব UI component @Composable ফাংশন হিসেবে লেখা হয়।
 
 উদাহরণ:
-
 @Composable
 fun Greeting(name: String) {
     Text(text = "Hello $name 👋")
 }
-
-
 Text, Button, Image, Column, Row সবই Composable functions।
 
 2.2 Modifiers
