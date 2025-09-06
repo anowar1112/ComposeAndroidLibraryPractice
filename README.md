@@ -82,3 +82,15 @@ State ব্যবহার করে dynamic UI বানান
 Button/Click events দিয়ে interaction handle করুন
 Preview দিয়ে IDE তে check করুন
 setContent { ... } এর মধ্যে main screen attach করুন
+
+
+👉 সংক্ষেপে
+Annotation	কাজ
+@Composable	UI function
+@Preview	IDE preview
+@Stable	Object stable (state কম পরিবর্তন হবে)
+@Immutable	Object immutable (data class)
+@ReadOnlyComposable	শুধু পড়ার জন্য, কোনো পরিবর্তন করবে না
+@OptIn	Experimental API ব্যবহার করার জন্য
+
+
