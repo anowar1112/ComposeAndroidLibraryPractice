@@ -24,8 +24,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
-
 @Composable
 fun MainScreen() {
     val context = LocalContext.current
