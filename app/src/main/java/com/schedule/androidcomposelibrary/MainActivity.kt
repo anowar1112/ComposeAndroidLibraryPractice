@@ -36,12 +36,12 @@ fun MainScreen() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "Hello 👋")
+            CommonUI().getTextObject("Hello 👋")
             Spacer(modifier = Modifier.height(10.dp)) // Text এবং Button এর মধ্যে space
             Button(onClick = {
                 context.startActivity(Intent(context, SecondActivity::class.java))
             }) {
-                Text(text = "Go to Second Activity")
+                CommonUI().getTextObject( "Go to Second Activity")
             }
         }
     }

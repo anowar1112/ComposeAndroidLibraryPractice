@@ -18,7 +18,7 @@ class SecondActivity : ComponentActivity() {
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                Text(text = "Welcome to Second Activity 🎉")
+                CommonUI().getTextObject("Welcome to Second Activity 🎉")
             }
         }
     }
