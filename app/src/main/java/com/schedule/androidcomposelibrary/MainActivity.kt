@@ -5,8 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,9 +48,36 @@ fun MainScreen() {
             }) {
                 CommonUI().getTextObject( "Go to Second Activity")
             }
+            GridExample()
         }
     }
 }
+
+@Composable
+fun GridExample() {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2), // ✅ এখন 'columns' ব্যবহার করতে হবে
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        items(20) { index ->
+            Card(
+                modifier = Modifier.padding(8.dp).fillMaxWidth(),
+                elevation = CardDefaults.cardElevation(4.dp)
+            ) {
+                Box(
+                    modifier = Modifier.height(100.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("Grid $index")
+                }
+            }
+        }
+    }
+}
+
 
 
 @Preview(showBackground = true)
