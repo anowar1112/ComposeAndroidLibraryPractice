@@ -63,6 +63,7 @@ dependencies {
 
     // ✅ Activity Compose
     implementation("androidx.activity:activity-compose")
+    implementation(libs.androidx.storage)
 
     // ✅ Debug tools
     debugImplementation("androidx.compose.ui:ui-tooling")

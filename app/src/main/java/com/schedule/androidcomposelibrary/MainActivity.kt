@@ -48,6 +48,12 @@ fun MainScreen() {
             }) {
                 CommonUI().getTextObject( "Go to Second Activity")
             }
+            Spacer(modifier = Modifier.height(10.dp)) // Text এবং Button এর মধ্যে space
+            Button(onClick = {
+                context.startActivity(Intent(context, WatchfaceMainActivity::class.java))
+            }) {
+                CommonUI().getTextObject( "Go to watchfcae Activity")
+            }
             GridExample()
         }
     }
