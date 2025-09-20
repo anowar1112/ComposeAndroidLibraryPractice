@@ -13,6 +13,9 @@
               android:theme="@style/Theme.AndroidComposeLibrary"
               tools:targetApi="31">
         <activity
+                  android:name=".WatchfaceCustomActivity"
+                  android:exported="false"/>
+        <activity
                   android:name=".WatchfaceMainActivity"
                   android:exported="false"/>
         <activity
