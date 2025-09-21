@@ -88,10 +88,15 @@ setContent { ... } এর মধ্যে main screen attach করুন
 Annotation	কাজ
 
 @Composable	UI function
+
 @Preview	IDE preview
+
 @Stable	Object stable (state কম পরিবর্তন হবে)
+
 @Immutable	Object immutable (data class)
+
 @ReadOnlyComposable	শুধু পড়ার জন্য, কোনো পরিবর্তন করবে না
+
 @OptIn	Experimental API ব্যবহার করার জন্য
 
 
@@ -99,23 +104,33 @@ Jetpack Compose Summary
 🔹 Basics
 
 Composable Function → @Composable annotation ব্যবহার করে UI বানানো হয়।
+
 Modifier → layout, padding, size, background, alignment control করার জন্য।
+
 State Management → UI reactive হয়। remember { mutableStateOf() } বা var দিয়ে state রাখা হয়।
+
+var count by remember { mutableStateOf(0) }
+Button(onClick = { count++ }) { Text("Clicked $count times") }
 
 🔹 Layouts
 
 Column → children vertical এ সাজায়।
+
 Row → children horizontal এ সাজায়।
+
 Box → একটার উপর আরেকটা stack করে।
+
 LazyColumn / LazyRow → Scrollable list।
+
 LazyVerticalGrid → Grid view (RecyclerView এর মতো)।
 
 🔹 Styling
 
 Shape → RoundedCornerShape, CircleShape ইত্যাদি।
-Shadow & Clip → shadow(), clip() দিয়ে সুন্দর view বানানো যায়।
-Text → Text() এ fontSize, fontWeight, color customize করা যায়।
 
+Shadow & Clip → shadow(), clip() দিয়ে সুন্দর view বানানো যায়।
+
+Text → Text() এ fontSize, fontWeight, color customize করা যায়।
 
 
 🔹 State Hoisting
@@ -125,8 +140,11 @@ Parent থেকে state পাঠিয়ে child এ ব্যবহার ক
 🔹 Scaffold Structure
 
 Scaffold → screen-এর common layout structure।
+
 topBar → Toolbar বা AppBar
+
 bottomBar → Bottom Navigation বা Action buttons
+
 floatingActionButton → FAB
 
 content → মূল UI অংশ
@@ -134,12 +152,15 @@ content → মূল UI অংশ
 🔹 Image Handling
 
 Image resource → painterResource(id = R.drawable.image)
+
 Async Image (URL থেকে) → coil-compose এর AsyncImage ব্যবহার হয়।
 
 🔹 Animations
 
 animate*AsState → ছোটখাটো animation
+
 AnimatedVisibility → show/hide transition
+
 rememberInfiniteTransition → continuous animation
 
 
@@ -147,7 +168,36 @@ rememberInfiniteTransition → continuous animation
 🔹 Best Practices
 
 State কম রাখুন → শুধুমাত্র UI control করার মতো জিনিস রাখবেন।
+
 Modifiers চেইন আকারে লিখুন → পড়তে সহজ হবে।
+
 UI Hierarchy clean রাখুন → Column → Row → Card → Text
+
 Theme system ব্যবহার করুন (MaterialTheme colors & typography)।
+
 Preview Function বানিয়ে XML এর মতো preview করুন।
+
+
+Root: Scaffold
+│
+├── Column (Main Content)
+│   ├── Text (Title)
+│   ├── Box (Big Preview Circle)
+│   │    └── Image
+│   ├── LazyRow (Tabs)
+│   │    └── FilterChip(s)
+│   └── LazyVerticalGrid (Previews)
+│        └── Image(s)
+│
+└── Row (BottomBar)
+    ├── OutlinedButton (Cancel)
+    └── Button (Save)
+
+
+Hierarchy টা মূলত Tree Structure এর মতো:
+
+Parent → Scaffold
+
+Children → Column, BottomBar
+
+Grandchildren → Text, Box, LazyRow, LazyVerticalGrid ইত্যাদি
