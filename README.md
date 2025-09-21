@@ -178,20 +178,7 @@ Theme system ব্যবহার করুন (MaterialTheme colors & typograp
 Preview Function বানিয়ে XML এর মতো preview করুন।
 
 
-Root: Scaffold
-│
-├── Column (Main Content)
-│   ├── Text (Title)
-│   ├── Box (Big Preview Circle)
-│   │    └── Image
-│   ├── LazyRow (Tabs)
-│   │    └── FilterChip(s)
-│   └── LazyVerticalGrid (Previews)
-│        └── Image(s)
-│
-└── Row (BottomBar)
-    ├── OutlinedButton (Cancel)
-    └── Button (Save)
+![Hierarchy Tree](Screenshot%202025-09-21%20at%2010.30.29.png)
 
 
 Hierarchy টা মূলত Tree Structure এর মতো:
