@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -50,15 +49,27 @@ fun MainScreen() {
             }
             Spacer(modifier = Modifier.height(10.dp)) // Text এবং Button এর মধ্যে space
             Button(onClick = {
-                context.startActivity(Intent(context, WatchfaceMainActivity::class.java))
+                val intent = Intent(context, ParentActivity::class.java)
+                intent.putExtra("fragment", "WatchfaceMainFragment") // A বা B
+                context.startActivity(intent)
             }) {
                 CommonUI().getTextObject( "Go to watchfcae Activity")
             }
             Spacer(modifier = Modifier.height(10.dp)) // Text এবং Button এর মধ্যে space
             Button(onClick = {
-                context.startActivity(Intent(context, WatchfaceCustomActivity::class.java))
+                val intent = Intent(context, ParentActivity::class.java)
+                intent.putExtra("fragment", "WatchfaceCustomFragment") // A বা B
+                context.startActivity(intent)
             }) {
                 CommonUI().getTextObject( "Go to watchfcae customize")
+            }
+            Spacer(modifier = Modifier.height(10.dp)) // Text এবং Button এর মধ্যে space
+            Button(onClick = {
+                val intent = Intent(context, ParentActivity::class.java)
+                intent.putExtra("fragment", "ManageMainActivity") // A বা B
+                context.startActivity(intent)
+            }) {
+                CommonUI().getTextObject( "Go to watchfcae manage")
             }
             GridExample()
         }
