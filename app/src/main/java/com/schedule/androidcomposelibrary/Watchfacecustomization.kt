@@ -1,6 +1,9 @@
 package com.schedule.androidcomposelibrary
 
 
+import android.Manifest
+import android.app.Activity
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -27,8 +30,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.provider.MediaStore
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
+
 @Composable
 fun Watchfacecustomization() {
+
+    val context = LocalContext.current
 
     val tabs = listOf(
         "Premade", "Background", "Colour", "Hands", "Style", "Layout", "Complication 2"
@@ -70,7 +84,7 @@ fun Watchfacecustomization() {
         ) {
             // Title
             Text(
-                text = "Premium Analogue",
+                text = "My Photo",
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Start,
@@ -119,6 +133,7 @@ fun Watchfacecustomization() {
 
             // Dynamic Content
             when (selectedTab) {
+                "Background" -> BackgroundTabContent(context)
                 "Complication 2" -> ComplicationTwoSection()
                 else -> DefaultPreviewGrid(selectedFace) { selectedFace = it }
             }
@@ -126,56 +141,149 @@ fun Watchfacecustomization() {
     }
 }
 
-// ======================== Complication 2 Section ========================
 @Composable
-fun ComplicationTwoSection() {
-    val sectionList = listOf(
-        "Basic" to listOf(
-            "None" to R.drawable.unknown,
-            "Battery" to R.drawable.unknown,
-            "Compass" to R.drawable.unknown,
-            "Compa" to R.drawable.unknown,
-            "Compas" to R.drawable.unknown,
-            "Cpass" to R.drawable.unknown,
-            "Phone" to R.drawable.unknown
-        ),
-        "Samsung Health" to listOf(
-            "Heart" to R.drawable.unknown,
-            "Steps" to R.drawable.unknown,
-            "Water" to R.drawable.unknown,
-            "Waer" to R.drawable.unknown,
-            "Sleep" to R.drawable.unknown
-        ),
-        "Exercise" to listOf(
-            "Running" to R.drawable.unknown,
-            "Cycling" to R.drawable.unknown,
-            "Swimming" to R.drawable.unknown,
-            "Workout" to R.drawable.unknown
-        ),
-        "Weather" to listOf(
-            "Temperature" to R.drawable.unknown,
-            "Humidity" to R.drawable.unknown,
-            "UV Index" to R.drawable.unknown
-        ),
-        "Clock Type" to listOf(
-            "Alarm" to R.drawable.unknown,
-            "World Clock" to R.drawable.unknown,
-            "Stopwatch" to R.drawable.unknown
-        )
+fun BackgroundTabContent(context: Context) {
+    val activity = context as? Activity
+    val cameraPermission = Manifest.permission.CAMERA
+
+    // Permission launcher
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            intent.resolveActivity(context.packageManager)?.let {
+                activity?.startActivity(intent)
+            }
+        } else {
+            Toast.makeText(context, "Camera permission denied", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    val items = listOf(
+        Pair("Camera", R.drawable.unknown),
+        Pair("Gallery", R.drawable.unknown)
     )
 
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+            .padding(vertical = 25.dp)
     ) {
-        items(sectionList) { (sectionTitle, items) ->
-            ComplicationSection(
-                title = sectionTitle,
-                items = items
-            )
+        items(items.size) { index ->
+            val (label, iconRes) = items[index]
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(80.dp)
+                        .clip(CircleShape)
+                        .background(Color.DarkGray)
+                        .clickable {
+                            when (label) {
+                                "Camera" -> {
+                                    // Permission check before open camera
+                                    if (ContextCompat.checkSelfPermission(
+                                            context,
+                                            cameraPermission
+                                        ) == PackageManager.PERMISSION_GRANTED
+                                    ) {
+                                        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                                        intent.resolveActivity(context.packageManager)?.let {
+                                            activity?.startActivity(intent)
+                                        }
+                                    } else {
+                                        launcher.launch(cameraPermission)
+                                    }
+                                }
+
+                                "Gallery" -> {
+                                    val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                                    intent.resolveActivity(context.packageManager)?.let {
+                                        activity?.startActivityForResult(intent, 1002)
+                                    }
+                                }
+                            }
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        painter = painterResource(id = iconRes),
+                        contentDescription = label,
+                        tint = Color.White,
+                        modifier = Modifier.size(40.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = label,
+                    color = Color.Black,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium
+                )
+            }
         }
     }
 }
+
+
+
+// ======================== Complication 2 Section ========================
+@Composable
+fun ComplicationTwoSection() {
+        val sectionList = listOf(
+            "Basic" to listOf(
+                "None" to R.drawable.unknown,
+                "Battery" to R.drawable.unknown,
+                "Compass" to R.drawable.unknown,
+                "Compa" to R.drawable.unknown,
+                "Compas" to R.drawable.unknown,
+                "Cpass" to R.drawable.unknown,
+                "Phone" to R.drawable.unknown
+            ),
+            "Samsung Health" to listOf(
+                "Heart" to R.drawable.unknown,
+                "Steps" to R.drawable.unknown,
+                "Water" to R.drawable.unknown,
+                "Waer" to R.drawable.unknown,
+                "Sleep" to R.drawable.unknown
+            ),
+            "Exercise" to listOf(
+                "Running" to R.drawable.unknown,
+                "Cycling" to R.drawable.unknown,
+                "Swimming" to R.drawable.unknown,
+                "Workout" to R.drawable.unknown
+            ),
+            "Weather" to listOf(
+                "Temperature" to R.drawable.unknown,
+                "Humidity" to R.drawable.unknown,
+                "UV Index" to R.drawable.unknown
+            ),
+            "Clock Type" to listOf(
+                "Alarm" to R.drawable.unknown,
+                "World Clock" to R.drawable.unknown,
+                "Stopwatch" to R.drawable.unknown
+            )
+        )
+
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(sectionList) { (sectionTitle, items) ->
+                ComplicationSection(
+                    title = sectionTitle,
+                    items = items
+                )
+            }
+        }
+    }
 
 @Composable
 fun ComplicationSection(title: String, items: List<Pair<String, Int>>) {
