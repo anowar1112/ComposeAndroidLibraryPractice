@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "333141162820",
+    "project_id": "chatingapp-50cf9",
+    "storage_bucket": "chatingapp-50cf9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333141162820:android:0ec5fe788ec65443467511",
+        "android_client_info": {
+          "package_name": "com.schedule.androidcomposelibrary"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYAI52_D8s9uoHNjOdWMaURmJHq0P7F5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

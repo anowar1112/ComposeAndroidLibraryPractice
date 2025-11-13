@@ -22,10 +22,13 @@
                   android:name=".ParentActivity"
                   android:exported="false"/>
         <activity
+                  android:name=".MainActivity"
+                  android:exported="false"/>
+        <activity
                   android:name=".SecondActivity"
                   android:exported="false"/>
         <activity
-                  android:name=".MainActivity"
+                  android:name=".firebase.ui.FiMainActivity"
                   android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
