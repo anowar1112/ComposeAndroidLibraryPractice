@@ -77,4 +77,15 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform("androidx.compose:compose-bom:2025.01.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+
+    // Supabase core SDK (newer naming)
+    implementation("io.github.jan-tennert.supabase:gotrue-kt:2.4.2")
+    implementation("io.github.jan-tennert.supabase:postgrest-kt:2.4.2")
+    implementation("io.github.jan-tennert.supabase:realtime-kt:2.4.2")
+    implementation("io.github.jan-tennert.supabase:gotrue-kt:2.4.2")
+
+
+
+    // Kotlin coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
 }
